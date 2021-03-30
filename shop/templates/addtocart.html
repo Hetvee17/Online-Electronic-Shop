@@ -66,7 +66,7 @@
             <div class="box-element">
                 <div class="cart-row">
                     <div style="flex:2"></div>
-                    <div style="flex:2"><strong>Item</strong></div>
+                    <div style="flex:1"><strong>Item</strong></div>
                     <div style="flex:1"><strong>Price</strong></div>
                     <div style="flex:1"><strong>Quantity</strong></div>
                     <div style="flex:1"><strong>Total</strong></div>
@@ -75,7 +75,7 @@
                 <div class="cart-row">
                     <form action="{% url 'removefromcart' %}" name="remove{{ cart.id }}" method="POST">
                         {% csrf_token %}
-                        <div style="flex:2">
+                        <div style="flex:3">
                             <img class="row-image" src="{{cart.product.imageURL}}">
                             <div class="d-flex justify-content-between">
                                 <input type="hidden" name="cid" value="{{ cart.id }}">
@@ -87,6 +87,7 @@
                     <div style="flex:2">
                         <p>{{cart.product.product_name}}</p>
                     </div>
+
                     <div style="flex:1">
                         <p>Rs. {{cart.product.price|floatformat:2}}</p>
                     </div>
@@ -94,7 +95,6 @@
                         <div class="value-button" id="decrease" value="Decrease Value">
                             <input type="number" name="qty" id="number" value="1">
                             <a class="minus-cart btn" pid="decrease" onclick="decreaseValue()"></span><i class="fas fa-minus-square fa-lg"></i></a>
-                            <span id="quantity">{{cart.quantity}}</span>
                             <a class="plus-cart btn" pid="{{cart.product.id}}"><i class="fas fa-plus-square fa-lg"></i></a></div>
                         <div class="quantity">
                             <img data-product="{{cart.product.id}}" src="">

@@ -178,18 +178,20 @@ def checkout(request):
         }
         return render(request, "checkout.html", context)
 
-def payment_done(request):
+def place_order(request):
     user = request.user
-    custid = request.GET.get('custid')
-    try:
-        customer = Customer.objects.get(id=custid)
-    except Customer.DoesNotExist:
-        user = None
-    cart = Cart.objects.filter(user=user)
-    for c in cart:
-        OrderPlaced(user=user, customer=customer, product=c.product, quantity=c.quantity).save()
-        c.delete()
-    return redirect(request, "orders")
+    items = Cart.objects.filter(user = user)
+    length = len(items)
+    total = 0 
+    for item in items:
+        total = total + item.price
+    order = OrderPlaced(user = user, total_amount = total, address = request.POST.get('address'), address2 = request.POST.get('address2'), country = request.POST.get('country'), state = request.POST.get('state'), pincode = request.POST.get('pincode'))
+    order.save()
+    for item in items:
+        order.products.add(item)
+        item.ordered = True
+    order.save()
+    return redirect("orders")
 
 def orders(request):
     op = OrderPlaced.objects.filter(user=request.user)
