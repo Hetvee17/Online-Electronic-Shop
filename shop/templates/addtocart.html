@@ -1,0 +1,129 @@
+{% extends 'basic.html' %} {% block title%} Cart : My Awesome Cart {% endblock %}{% block body %} {% load static %}
+<html>
+<style>
+    body {
+        background-color: hsl(0, 0%, 98%);
+    }
+    
+    .box-element {
+        box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    
+    .col-lg-4,
+    .col-lg-6,
+    .col-lg-8,
+    .col-lg-12 {
+        margin-top: 10px;
+    }
+    
+    .btn {
+        border-radius: 0;
+    }
+    
+    .row-image {
+        width: 100px;
+    }
+    
+    .cart-row {
+        display: flex;
+        align-items: flex-stretch;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ececec;
+    }
+</style>
+
+<body>
+    {% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+
+                <a class="btn btn-outline-dark" href="{% url 'ShopHome' %}">&#x2190; Continue Shopping</a>
+
+                <br>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th>
+                            <h5>Items: <strong>{{Cart.get_cart_items}}</strong></h5>
+                        </th>
+                        <th>
+                            <h5>Total:<strong> Rs. {{amount|floatformat:2}}</strong></h5>
+                        </th>
+                        <th>
+                            <a style="float:right; margin:5px;" class="btn btn-success" href="{% url 'Checkout' %}">Checkout</a>
+                        </th>
+                    </tr>
+                </table>
+
+            </div>
+
+            <br>
+            <div class="box-element">
+                <div class="cart-row">
+                    <div style="flex:2"></div>
+                    <div style="flex:2"><strong>Item</strong></div>
+                    <div style="flex:1"><strong>Price</strong></div>
+                    <div style="flex:1"><strong>Quantity</strong></div>
+                    <div style="flex:1"><strong>Total</strong></div>
+                </div>
+                {% for cart in carts %}
+                <div class="cart-row">
+                    <div style="flex:2">
+                        <img class="row-image" src="{{cart.product.imageURL}}">
+                        <div class="d-flex justify-content-between">
+                            <a href="" class="btn btn-sm btn-secondary mr-3" pid="{{cart.product.id}}">Remove item </a>
+                        </div>
+                    </div>
+                    <div style="flex:2">
+                        <p>{{cart.product.product_name}}</p>
+                    </div>
+                    <div style="flex:1">
+                        <p>Rs. {{cart.product.price|floatformat:2}}</p>
+                    </div>
+                    <div style="flex:1">
+                        <div class="value-button" id="decrease" value="Decrease Value">
+                            <input type="number" name="qty" id="number" value="1">
+                            <a class="minus-cart btn" pid="decrease" onclick="decreaseValue()"></span><i class="fas fa-minus-square fa-lg"></i></a>
+                            <span id="quantity">{{cart.quantity}}</span>
+                            <a class="plus-cart btn" pid="{{cart.product.id}}"><i class="fas fa-plus-square fa-lg"></i></a></div>
+                        <div class="quantity">
+                            <img data-product="{{cart.product.id}}" src="">
+
+                            <img data-product="{{cart.product.id}}" src="">
+                        </div>
+                    </div>
+                    <div style="flex:1">
+                        <p>Rs. <span id="amount">{{cart.price|floatformat:2}}</span></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+</body>
+{% endblock %}
+<script>
+    function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('number').value = value;
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        document.getElementById('number').value = value;
+    }
+</script>
+
+</html>

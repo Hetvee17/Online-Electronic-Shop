@@ -1,0 +1,110 @@
+{% extends 'basic.html' %}{% block title%} Sign_Up {% endblock %} {% block body %} {% load static %}
+
+<title>Login</title>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        background-color: rgb(132, 141, 141);
+    }
+    
+    .row {
+        background-color: white;
+        border-radius: 30px;
+    }
+    
+    .img {
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+    }
+    
+    .btn1 {
+        border: none;
+        outline: none;
+        height: 50px;
+        width: 100%;
+        background-color: black;
+        color: white;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    
+    .btn1:hover {
+        background-color: white;
+        border: 1px solid;
+        color: black
+    }
+</style>
+</head>
+
+<body>
+    <div class="container mt-4">
+
+        <div class="p-4 m-4">
+
+
+            <div class="col-lg-5 rounded mx-auto border pt-4">
+                <div class="text-center col">
+
+                    <img src="data:image/png;base64,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"
+                        alt="" class="" style="height: 150px;">
+                    <!-- <hr> -->
+                    <div class="display-8">
+                        <h1>Create An Account</h1>
+                    </div>
+                    <hr>
+                </div>
+                <h3 hidden class="alert alert-light border rounded">Create An Account</h3>
+                <form action="" method="POST">
+
+                    {% csrf_token %} {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <!-- firstname -->
+                    <div class="form-group">
+                        <label for="">First Name</label>
+                        <input type="text" name="firstname" id="" value="{{values.first_name}}" class="form-control form-control-sm" placeholder="">
+                    </div>
+
+                    <!-- last name -->
+                    <div class="form-group">
+                        <label for="">Last Name</label>
+                        <input type="text" name="lastname" id="" value="{{values.last_name}}" class="form-control form-control-sm">
+                    </div>
+
+                    <!-- phone -->
+                    <div class="form-group">
+                        <label for="">Phone</label>
+                        <input type="text" name="phone" id="" class="form-control form-control-sm" value="{{values.phone}}" placeholder="565698959">
+                    </div>
+                    <!-- email -->
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input required type="email" name="email" id="" value="{{values.email}}" class=" form-control-sm form-control" placeholder="example@gmail.com">
+                    </div>
+
+
+                    <!-- password -->
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" name="password" id="" class="form-control form-control-sm" placeholder="********">
+                    </div>
+
+                    <hr>
+                    <div class="form-group">
+                        <input class="btn btn-sm btn-success" type="submit" value="Create An Account">
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock%}
+</body>

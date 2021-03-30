@@ -1,0 +1,25 @@
+{% extends 'basic.html' %} {% block title %} {{product.product_name}} -- My Awesome Products {% endblock %} {% block body %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <img src="/media/{{product.image}}" width="250px" height="250px">
+            </div>
+            <div class=" row ">
+                <button class="btn btn-secondary col-my-4 mx-3 ">Buy Now</button>
+                <form action="{% url 'add-to-cart' %}">
+                    <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+
+                    <button type="submit" class="btn btn-success">Add To Cart</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8 ">
+            <h5>{{product.product_name}}</h5>
+            <p><b>RS. {{product.price}}</b></p>
+            <p>{{product.desc}}</p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
