@@ -53,8 +53,6 @@ def registerUser(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
 
-    #validation
-    # 'values' are sent to the signup
     value = {
         'first_name' : first_name,
         'last_name' : last_name,

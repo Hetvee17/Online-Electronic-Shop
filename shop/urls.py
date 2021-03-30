@@ -4,8 +4,8 @@ from django.urls import path
 from .views import Index, Product_view, Login
 
 urlpatterns = [
-    path("", Index.as_view(), name="ShopHome"),
-    path("signup/", views.signup, name="Signup"),
+    path("", views.signup, name="Signup"),
+    path("index/", Index.as_view(), name="ShopHome"),
     path("contact/", views.contact, name="ContactUs"),
     path("products/<int:myid>", Product_view.as_view(), name="Product_View"),
     path("checkout/", views.checkout, name="Checkout"),
