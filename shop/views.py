@@ -149,7 +149,7 @@ def cart(request):
             return render(request, 'emptycart.html')
 
 def update_cart_item(request):
-    ciid = request.POST.get('ciid')
+    ciid = request.POST.get('cid')
     cart_item = Cart.objects.get(id = ciid)
     cart_item.quantity = request.POST.get('qty')
     cart_item.price = int(cart_item.quantity) * int(cart_item.product.price)
@@ -163,25 +163,28 @@ def remove_from_cart(request):
     return redirect(cart)
 
 def checkout(request):
-    user = request.user
-    cart_items = Cart.objects.filter(user=user)
-    total = 0 
-    cart_product = [item for item in Cart.objects.all() if item.user == request.user]
-    
-    for item in cart_items:
-        if(cart_product):
-            total = total + (item.product.price * item.quantity)
-    context = {
-        'user': user,
-        'cart_items': cart_items, 
-        'total': total,
-    }
-    return render(request, "checkout.html", context)
+        user = request.user
+        cart_items = Cart.objects.filter(user=user)
+        total = 0 
+        cart_product = [item for item in Cart.objects.all() if item.user == request.user]
+        
+        for item in cart_items:
+            if(cart_product):
+                total = total + (item.product.price * item.quantity)
+        context = {
+            'user': user,
+            'cart_items': cart_items, 
+            'total': total,
+        }
+        return render(request, "checkout.html", context)
 
 def payment_done(request):
     user = request.user
     custid = request.GET.get('custid')
-    customer = Customer.objects.get(id=custid)
+    try:
+        customer = Customer.objects.get(id=custid)
+    except Customer.DoesNotExist:
+        user = None
     cart = Cart.objects.filter(user=user)
     for c in cart:
         OrderPlaced(user=user, customer=customer, product=c.product, quantity=c.quantity).save()

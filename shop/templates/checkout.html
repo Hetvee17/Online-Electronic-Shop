@@ -70,7 +70,7 @@
 <body>
     {% block content %}
     <form action="{% url 'paymentdone' %}">
-        <div class="row" name="custid" id="custadd{{forloop.counter}}" value={{user.id}}>
+        <div class="row">
 
             <div class="col-lg-6 ">
                 <div class="box-element my-4 mx-4 " id="form-wrapper ">
@@ -84,7 +84,7 @@
                                 <input required class="form-control " type="text " name="lname " placeholder="Last Name.. ">
                             </div>
                             <div class="form-field ">
-                                <input required class="form-control " type="email " name="email " value="{{ user.email }} " placeholder="Email.. ">
+                                <input required class="form-control " type="email " name="email " placeholder="Email.. ">
                             </div>
                         </div>
 
@@ -111,8 +111,8 @@
 
                         <hr>
                         <form action="{% url 'paymentdone' %} ">
-                            <input type="hidden" id="form-button " value="Continue ">
-                            <button type="submit" class="btn btn-success">Continue</button>
+                            <input type="hidden" id="form-button " name="custid" id="custadd{{forloop.counter}}" value="{{user.id}} ">
+                            <button type="submit " class="btn btn-success ">Continue</button>
                         </form>
 
                     </form>

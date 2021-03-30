@@ -73,12 +73,17 @@
                 </div>
                 {% for cart in carts %}
                 <div class="cart-row">
-                    <div style="flex:2">
-                        <img class="row-image" src="{{cart.product.imageURL}}">
-                        <div class="d-flex justify-content-between">
-                            <a href="" class="btn btn-sm btn-secondary mr-3" pid="{{cart.product.id}}">Remove item </a>
+                    <form action="{% url 'removefromcart' %}" name="remove{{ cart.id }}" method="POST">
+                        {% csrf_token %}
+                        <div style="flex:2">
+                            <img class="row-image" src="{{cart.product.imageURL}}">
+                            <div class="d-flex justify-content-between">
+                                <input type="hidden" name="cid" value="{{ cart.id }}">
+                                <button type="submit" class="btn btn-secondary"><i class="fas fa-trash-alt mr-1"></i> Remove item </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
                     <div style="flex:2">
                         <p>{{cart.product.product_name}}</p>
                     </div>
@@ -109,21 +114,5 @@
 
 </body>
 {% endblock %}
-<script>
-    function increaseValue() {
-        var value = parseInt(document.getElementById('number').value, 10);
-        value = isNaN(value) ? 0 : value;
-        value++;
-        document.getElementById('number').value = value;
-    }
-
-    function decreaseValue() {
-        var value = parseInt(document.getElementById('number').value, 10);
-        value = isNaN(value) ? 0 : value;
-        value < 1 ? value = 1 : '';
-        value--;
-        document.getElementById('number').value = value;
-    }
-</script>
 
 </html>
