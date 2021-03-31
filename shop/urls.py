@@ -7,6 +7,7 @@ urlpatterns = [
     path("", views.signup, name="Signup"),
     path("index/", Index.as_view(), name="ShopHome"),
     path("contact/", views.contact, name="ContactUs"),
+    path("logout", views.logout_request, name= "logout"),
     path("products/<int:myid>", Product_view.as_view(), name="Product_View"),
     path("checkout/", views.checkout, name="Checkout"),
     path("paymentdone", views.payment_done, name="paymentdone"),
@@ -15,5 +16,5 @@ urlpatterns = [
     path("removefromcart", views.remove_from_cart, name="removefromcart"),
     path('updatecartitem', views.update_cart_item, name="updatecratitem"),
     path("login/", Login.as_view(), name="Login"),
-    path('order/', views.orders, name='orders')
+    path('order/', views.orders, name='orders'),
 ]

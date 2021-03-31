@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import *
 from math import ceil
-from django.db.models import Q
-from django.http import JsonResponse
+from django.contrib.auth import login, logout
+from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password 
 from django.views.generic import View
 
@@ -20,7 +20,7 @@ class Index(View):
             allProds.append([prod, range(1, nSlides), nSlides])
 
         params = {'allProds':allProds}
-        print('You are : ',request.session.get('email')) #users email will be printed in terminal
+        print('You are : ',request.session.get('email')) 
         return render(request, 'index.html', params)
   
 class Product_view(View):
@@ -192,3 +192,8 @@ def payment_done(request):
 def orders(request):
     op = OrderPlaced.objects.filter(user=request.user)
     return (request,'orders.html',{'order_placed':op})
+
+def logout_request(request):
+	logout(request)
+	messages.info(request, "You have successfully logged out.") 
+	return redirect("Login")
