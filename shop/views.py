@@ -125,11 +125,12 @@ def contact(request):
     return render(request, 'contact.html')
 
 def add_to_cart(request):
-    user = request.user
-    prod_id = request.GET.get('prod_id')
-    product = Product.objects.get(id=prod_id)
-    Cart(user=user, product=product).save()
-    return redirect('/cart')
+    if request.user.is_authenticated:
+        user = request.user
+        prod_id = request.GET.get('prod_id')
+        product = Product.objects.get(id=prod_id)
+        Cart(user=user, product=product).save()
+        return redirect('/cart')
 
 def cart(request):
     if request.user.is_authenticated:
