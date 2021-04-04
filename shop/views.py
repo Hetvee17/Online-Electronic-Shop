@@ -112,6 +112,13 @@ class Login(View):
             error_message = "Email or password is Invalid"
         print(email, password)
         return render(request, 'login.html', {'error':error_message})
+
+def orders(request):
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, "orders.html", context)
         
 def contact(request):
     if request.method == "POST":
